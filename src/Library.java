@@ -126,4 +126,40 @@ public class Library {
     public int size() {
         return books.size();
     }
+
+    /**
+     * Updates the title and author of an existing book. The ID cannot be changed.
+     *
+     * @param id     the ID of the book to update
+     * @param title  the new title
+     * @param author the new author
+     * @return the updated book
+     * @throws LibraryException if no book has this ID, or the title or author is
+     *                          empty
+     */
+    public Book updateBook(int id, String title, String author) throws LibraryException {
+        Book book = books.get(id);
+        if (book == null) {
+            throw new LibraryException("No book found with ID " + id + ".");
+        }
+        validateDetails(title, author);
+        book.setTitle(title.trim());
+        book.setAuthor(author.trim());
+        return book;
+    }
+
+    /**
+     * Deletes a book from the library.
+     *
+     * @param id the ID of the book to delete
+     * @return the book that was removed
+     * @throws LibraryException if no book has this ID
+     */
+    public Book deleteBook(int id) throws LibraryException {
+        Book removed = books.remove(id);
+        if (removed == null) {
+            throw new LibraryException("No book found with ID " + id + ".");
+        }
+        return removed;
+    }
 }
