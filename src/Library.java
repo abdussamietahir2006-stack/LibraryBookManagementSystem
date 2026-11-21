@@ -162,4 +162,24 @@ public class Library {
         }
         return removed;
     }
+
+    /**
+     * Changes the status of a book to Available, Issued or Reserved.
+     *
+     * @param id     the ID of the book
+     * @param status the new status
+     * @return the book with its updated status
+     * @throws LibraryException if no book has this ID or no status was chosen
+     */
+    public Book setStatus(int id, BookStatus status) throws LibraryException {
+        Book book = books.get(id);
+        if (book == null) {
+            throw new LibraryException("No book found with ID " + id + ".");
+        }
+        if (status == null) {
+            throw new LibraryException("Please choose a status.");
+        }
+        book.setStatus(status);
+        return book;
+    }
 }
